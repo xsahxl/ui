@@ -1,8 +1,2 @@
-import * as React from 'react'
-import './index.less'
-
-const WindComponent = () => (
-  <div>WindComponent</div>
-)
-
-export default WindComponent
+export { default as Mutation } from './Mutation'
+export { default as Query } from './Query'
