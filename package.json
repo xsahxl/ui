@@ -1,12 +1,12 @@
 {
   "name": "@xsahxl/ui",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "lib/index.js",
   "module": "es/index.js",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/xsahxl/ui"
   },
   "author": {
     "name": "xsahxl",
