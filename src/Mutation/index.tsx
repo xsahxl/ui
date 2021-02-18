@@ -1,18 +1,18 @@
-import React, { useState, Fragment } from 'react'
-import { isFunction } from 'lodash'
+import React, { useState, Fragment } from 'react';
+import { isFunction } from 'lodash';
 
 interface ChindOptions {
-  data: any
-  loading: boolean
-  error: any
+  data: any;
+  loading: boolean;
+  error: any;
 }
 
 interface PropsOptions {
-  onSubmit: () => Promise<any>
-  children: (submit: () => Promise<any>, options: ChindOptions) => any
-  onCompleted?: Function
-  onError?: (err: any) => void
-  refetchQuery?: Function
+  onSubmit: () => Promise<any>;
+  children: (submit: () => Promise<any>, options: ChindOptions) => any;
+  onCompleted?: Function;
+  onError?: (err: any) => void;
+  refetchQuery?: Function;
 }
 function Mutation(props: PropsOptions) {
   const {
@@ -21,25 +21,25 @@ function Mutation(props: PropsOptions) {
     onCompleted,
     onError,
     refetchQuery,
-  } = props
-  const [result, setResult] = useState([])
-  const [error, setError] = useState([])
-  const [loading, setLoading] = useState(false)
+  } = props;
+  const [result, setResult] = useState([]);
+  const [error, setError] = useState([]);
+  const [loading, setLoading] = useState(false);
   const onSubmit = async () => {
     try {
-      setLoading(true)
-      const data = await onSubmitFromProps()
-      setLoading(false)
-      setResult(data)
-      isFunction(onCompleted) && onCompleted()
-      isFunction(refetchQuery) && refetchQuery()
+      setLoading(true);
+      const data = await onSubmitFromProps();
+      setLoading(false);
+      setResult(data);
+      isFunction(onCompleted) && onCompleted();
+      isFunction(refetchQuery) && refetchQuery();
     } catch (err) {
-      isFunction(onCompleted) && onCompleted()
-      isFunction(onError) && onError(err)
-      setError(err)
-      setLoading(false)
+      isFunction(onCompleted) && onCompleted();
+      isFunction(onError) && onError(err);
+      setError(err);
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <Fragment>
@@ -49,7 +49,7 @@ function Mutation(props: PropsOptions) {
         error,
       })}
     </Fragment>
-  )
+  );
 }
 
-export default Mutation
+export default Mutation;

@@ -1,16 +1,16 @@
-import * as React from 'react'
-import '@alicloud/console-components/dist/wind.css'
-import { Button } from '@alicloud/console-components'
-import { storiesOf } from '@storybook/react'
-import { Mutation } from '../src/index'
+import * as React from 'react';
+import '@alicloud/console-components/dist/wind.css';
+import { Button } from '@alicloud/console-components';
+import { storiesOf } from '@storybook/react';
+import { Mutation } from '../src/index';
 
 const Demo = () => {
   const fetchData = async () => {
     const data = await new Promise((resolve, reject) => {
-      setTimeout(() => resolve('ok'), 1000)
-    })
-    return data
-  }
+      setTimeout(() => resolve('ok'), 1000);
+    });
+    return data;
+  };
 
   return (
     <Mutation
@@ -27,12 +27,12 @@ const Demo = () => {
           >
             创建
           </Button>
-        )
+        );
       }}
     </Mutation>
-  )
-}
+  );
+};
 
 storiesOf('Mutation', module).add('Mutation', () => {
-  return <Demo />
-})
+  return <Demo />;
+});
