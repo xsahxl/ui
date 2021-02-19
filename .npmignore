@@ -1,8 +1,11 @@
 .gitignore
+.prettierrc
 
-node_module
+node_modules
 
 src
+stories
+tests
 
 tsconfig.json
 tslint.json

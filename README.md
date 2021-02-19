@@ -1,11 +1,5 @@
-# wind-component
-
-> a wind library
-
-
 ## Usage
 
-```js
-import WindComponent from 'wind-component';
+```tsx
+import { Query } from '@xsahxl/ui';
 ```
-
