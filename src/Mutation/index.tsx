@@ -14,6 +14,7 @@ interface PropsOptions {
   onError?: (err: any) => void;
   refetchQuery?: Function;
 }
+
 function Mutation(props: PropsOptions) {
   const {
     onSubmit: onSubmitFromProps,
