@@ -5,5 +5,5 @@
 
 A react library developed with dumi
 
-My personal website: https://xsahxl.github.io. If you feel it is too slow to access the page, you can also visit the oss address: http://shihuali.oss.devsapp.net
-
+ui: https://xsahxl.github.io
+blog: https://xsahxl.github.io/blog
