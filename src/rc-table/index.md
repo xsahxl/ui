@@ -44,7 +44,7 @@ const Demo = () => {
   const fetchData = async params => {
     console.log('params', params);
     await sleep(500);
-    const res = await axios.get('https://mock.presstime.cn/mock/645db7465bbac3001ab907c8/api/tablelist', {
+    const res = await axios.get('https://table-lacaqljjvb.cn-chengdu.fcapp.run', {
       params,
     });
     console.log(res);
@@ -110,7 +110,7 @@ const Demo = () => {
   const fetchData = async params => {
     console.log('params', params);
     await sleep(500);
-    const res = await axios.get('https://mock.presstime.cn/mock/645db7465bbac3001ab907c8/api/tablelist', {
+    const res = await axios.get('https://table-lacaqljjvb.cn-chengdu.fcapp.run', {
       params,
     });
     console.log(res);
@@ -181,7 +181,7 @@ const Demo = () => {
   const fetchData = async params => {
     console.log('params', params);
     await sleep(500);
-    const res = await axios.get('https://mock.presstime.cn/mock/645db7465bbac3001ab907c8/api/tablelist', {
+    const res = await axios.get('https://table-lacaqljjvb.cn-chengdu.fcapp.run', {
       params,
     });
     console.log(res);
@@ -279,7 +279,7 @@ const Demo = () => {
   const fetchData = async params => {
     console.log('params', params);
     await sleep(500);
-    const res = await axios.get('https://mock.presstime.cn/mock/645db7465bbac3001ab907c8/api/tablelist', {
+    const res = await axios.get('https://table-lacaqljjvb.cn-chengdu.fcapp.run', {
       params,
     });
     console.log(res);
@@ -390,7 +390,7 @@ const Demo = () => {
   const fetchData = async params => {
     console.log('params', params);
     await sleep(500);
-    const res = await axios.get('https://mock.presstime.cn/mock/645db7465bbac3001ab907c8/api/tablelist', {
+    const res = await axios.get('https://table-lacaqljjvb.cn-chengdu.fcapp.run', {
       params,
     });
     console.log(res);
@@ -503,7 +503,7 @@ const Demo = () => {
   const fetchData = async params => {
     console.log('params', params);
     await sleep(500);
-    const res = await axios.get('https://mock.presstime.cn/mock/645db7465bbac3001ab907c8/api/tablelist', {
+    const res = await axios.get('https://table-lacaqljjvb.cn-chengdu.fcapp.run', {
       params,
     });
     console.log(res);
@@ -619,7 +619,7 @@ const Demo = () => {
   const fetchData = async params => {
     console.log('params', params);
     await sleep(500);
-    const res = await axios.get('https://mock.presstime.cn/mock/645db7465bbac3001ab907c8/api/tablelist', {
+    const res = await axios.get('https://table-lacaqljjvb.cn-chengdu.fcapp.run', {
       params,
     });
     console.log(res);
@@ -735,7 +735,7 @@ const Demo = () => {
   const fetchData = async params => {
     console.log('params', params);
     await sleep(500);
-    const res = await axios.get('https://mock.presstime.cn/mock/645db7465bbac3001ab907c8/api/tablelist', {
+    const res = await axios.get('https://table-lacaqljjvb.cn-chengdu.fcapp.run', {
       params,
     });
     console.log(res);
@@ -862,7 +862,7 @@ const Demo = () => {
   const fetchData = async params => {
     console.log('params', params);
     await sleep(500);
-    const res = await axios.get('https://mock.presstime.cn/mock/645db7465bbac3001ab907c8/api/tablelist', {
+    const res = await axios.get('https://table-lacaqljjvb.cn-chengdu.fcapp.run', {
       params,
     });
     console.log(res);
@@ -991,7 +991,7 @@ const Demo = () => {
   const fetchData = async params => {
     console.log('params', params);
     await sleep(500);
-    const res = await axios.get('https://mock.presstime.cn/mock/645db7465bbac3001ab907c8/api/tablelist', {
+    const res = await axios.get('https://table-lacaqljjvb.cn-chengdu.fcapp.run', {
       params,
     });
     console.log(res);
@@ -1117,7 +1117,7 @@ const Demo = () => {
   const fetchData = async params => {
     console.log('params', params);
     await sleep(500);
-    const res = await axios.get('https://mock.presstime.cn/mock/645db7465bbac3001ab907c8/api/tablelist', {
+    const res = await axios.get('https://table-lacaqljjvb.cn-chengdu.fcapp.run', {
       params,
     });
     console.log(res);
