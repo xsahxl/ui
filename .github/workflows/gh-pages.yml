@@ -1,0 +1,44 @@
+name: Website Publish
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  publish-website:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org/
+      - name: Cache node modules
+        uses: actions/cache@v3
+        id: cache
+        with:
+          path: |
+            node_modules
+          key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
+      - run: npm install --production=false
+      - run: npm run docs:build
+      - name: Sync docs to xsahxl.github.io
+        run: |
+          # 确保脚本抛出遇到的错误
+          set -e
+
+          # 进入生成的文件夹
+          cd docs-dist
+
+          # 添加 README.md
+          echo 'ui: https://xsahxl.github.io \n blog: https://xsahxl.github.io/blog' > README.md
+
+          # 代码提交
+          git init
+          git remote add origin https://${{ secrets.GIT_TOKEN }}@github.com/xsahxl/xsahxl.github.io
+          git add -A
+          git commit -m 'deploy'
+          git push --set-upstream origin master -f
+          cd -
