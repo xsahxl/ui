@@ -4,7 +4,7 @@ hero:
   description: xsahxl's Personal Website
   actions:
     - text: 组件
-      link: /components/rc-table#table
+      link: /components/rc-table
     - text: 博客
       link: https://xsahxl.github.io/blog
 ---

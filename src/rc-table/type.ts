@@ -1,5 +1,5 @@
 import { ITableProps as _ITableProps } from '@alicloud/console-components-table';
-import { IRcSearchProps, IRcSearchOptionsProps } from '@alicloud/console-components-search';
+import { IRcSearchProps, IRcSearchOptionsProps, IRcSearchTagItemProps } from '@alicloud/console-components-search';
 import { Table } from '@alicloud/console-components';
 
 export type Column = typeof Table.Column;
@@ -33,3 +33,8 @@ export interface IParams {
   pageSize?: number;
   [key: string]: any;
 }
+
+export type IRcSearchTagItem = IRcSearchTagItemProps & {
+  template: 'input' | 'select' | 'multiple';
+  defaultValue: any;
+};

@@ -5,32 +5,31 @@
 ## basic
 
 ```tsx
-import React from 'react';
-import { RcTable, sleep } from '@xsahxl/ui';
+import React, { useState } from 'react';
+import { RcTable, sleep, Actions, LinkButton } from '@xsahxl/ui';
 import axios from 'axios';
+import { Button, Badge } from '@alicloud/console-components';
 import '@alicloud/console-components/dist/wind.css';
 import Cookie from 'js-cookie';
 
 Cookie.set('aliyun_lang', 'zh');
 
 const Demo = () => {
+  const [refreshIndex, setRefreshIndex] = useState(0);
   const columns = [
     {
       key: 'InstanceName',
       title: '实例名称',
       dataIndex: 'InstanceName',
-      width: 300,
     },
     {
       key: 'Address',
       title: 'IP地址',
       dataIndex: 'Address',
-      width: 300,
     },
     {
       key: 'CreationTime',
       title: '创建时间',
-      width: 300,
       dataIndex: 'CreationTime',
       sortable: true,
     },
@@ -38,9 +37,64 @@ const Demo = () => {
       key: 'Status',
       title: '状态',
       dataIndex: 'Status',
-      width: 300,
+    },
+    {
+      title: '操作',
+      cell: () => (
+        <Actions>
+          <LinkButton>详情</LinkButton>
+          <LinkButton>编辑</LinkButton>
+          <LinkButton disabled>删除</LinkButton>
+        </Actions>
+      ),
     },
   ];
+  const search = {
+    children: <Button>自定义内容</Button>,
+    defaultDataIndex: 'name',
+    defaultSelectedDataIndex: 'name',
+    options: [
+      {
+        label: '实例名称',
+        dataIndex: 'name',
+        template: 'input',
+        templateProps: {
+          placeholder: '按实例名称搜索',
+        },
+        defaultValue: 'abc',
+      },
+      {
+        label: '网络类型',
+        dataIndex: 'type',
+        template: 'select',
+        templateProps: {
+          placeholder: '请选择网络类型',
+          dataSource: [
+            { label: 'A', value: 'a' },
+            { label: 'B', value: 'b' },
+            { label: 'C', value: 'c' },
+            { label: 'D', value: 'd' },
+          ],
+        },
+        defaultValue: 'c',
+      },
+      {
+        label: '付费类型',
+        dataIndex: 'pay',
+        template: 'multiple',
+        templateProps: {
+          placeholder: '请选择付费类型',
+          dataSource: [
+            { label: 'A', value: 'a' },
+            { label: 'B', value: 'b' },
+            { label: 'C', value: 'c' },
+            { label: 'D', value: 'd' },
+          ],
+        },
+        defaultValue: ['a', 'd'],
+      },
+    ],
+  };
   const fetchData = async params => {
     console.log('params', params);
     await sleep(500);
@@ -55,12 +109,26 @@ const Demo = () => {
   };
   return (
     <RcTable
+      className="cc"
+      style={{ color: '#333' }}
       columns={columns}
       fetchData={fetchData}
-      pagination={{
-        current: 1,
-        pageSize: 10,
-        total: 40,
+      refreshIndex={refreshIndex}
+      recordCurrent
+      showRefreshButton
+      operation={
+        <Button type="primary" onClick={() => setRefreshIndex(Date.now())}>
+          创建应用
+        </Button>
+      }
+      search={search}
+      primaryKey="InstanceId"
+      selection={({ selectedRowKeys }: { selectedRowKeys: any[] }) => {
+        return (
+          <Badge count={selectedRowKeys.length}>
+            <Button disabled={selectedRowKeys.length === 0}>Delete</Button>
+          </Badge>
+        );
       }}
     />
   );
@@ -71,7 +139,7 @@ export default Demo;
 
 ## refreshIndex
 
-```tsx
+```tsx | pure
 import React, { useState } from 'react';
 import { RcTable, sleep } from '@xsahxl/ui';
 import axios from 'axios';
@@ -143,7 +211,7 @@ export default Demo;
 
 ## showRefreshButton
 
-```tsx
+```tsx | pure
 import React, { useState } from 'react';
 import { RcTable, sleep } from '@xsahxl/ui';
 import axios from 'axios';
@@ -198,7 +266,7 @@ export default Demo;
 
 ## search
 
-```tsx
+```tsx | pure
 import React, { useState } from 'react';
 import { RcTable, sleep } from '@xsahxl/ui';
 import axios from 'axios';
@@ -309,7 +377,7 @@ export default Demo;
 
 ## recordCurrent
 
-```tsx
+```tsx | pure
 import React, { useState } from 'react';
 import { RcTable, sleep } from '@xsahxl/ui';
 import axios from 'axios';
@@ -421,7 +489,7 @@ export default Demo;
 
 ## search children
 
-```tsx
+```tsx | pure
 import React, { useState } from 'react';
 import { RcTable, sleep } from '@xsahxl/ui';
 import axios from 'axios';
@@ -534,7 +602,7 @@ export default Demo;
 
 ## search default value
 
-```tsx
+```tsx | pure
 import React, { useState } from 'react';
 import { RcTable, sleep } from '@xsahxl/ui';
 import axios from 'axios';
@@ -648,135 +716,9 @@ const Demo = () => {
 export default Demo;
 ```
 
-## selection
-
-```tsx
-import React, { useState } from 'react';
-import { RcTable, sleep } from '@xsahxl/ui';
-import axios from 'axios';
-import { Button, Badge } from '@alicloud/console-components';
-import '@alicloud/console-components/dist/wind.css';
-
-const Demo = () => {
-  const [refreshIndex, setRefreshIndex] = useState(0);
-  const columns = [
-    {
-      key: 'InstanceName',
-      title: '实例名称',
-      dataIndex: 'InstanceName',
-      width: 300,
-    },
-    {
-      key: 'Address',
-      title: 'IP地址',
-      dataIndex: 'Address',
-      width: 300,
-    },
-    {
-      key: 'CreationTime',
-      title: '创建时间',
-      width: 300,
-      dataIndex: 'CreationTime',
-      sortable: true,
-    },
-    {
-      key: 'Status',
-      title: '状态',
-      dataIndex: 'Status',
-      width: 300,
-    },
-  ];
-  const search = {
-    children: <Button>自定义内容</Button>,
-    defaultDataIndex: 'name',
-    defaultSelectedDataIndex: 'name',
-    options: [
-      {
-        label: '实例名称',
-        dataIndex: 'name',
-        template: 'input',
-        templateProps: {
-          placeholder: '按实例名称搜索',
-        },
-        defaultValue: 'abc',
-      },
-      {
-        label: '网络类型',
-        dataIndex: 'type',
-        template: 'select',
-        templateProps: {
-          placeholder: '请选择网络类型',
-          dataSource: [
-            { label: 'A', value: 'a' },
-            { label: 'B', value: 'b' },
-            { label: 'C', value: 'c' },
-            { label: 'D', value: 'd' },
-          ],
-        },
-        defaultValue: 'c',
-      },
-      {
-        label: '付费类型',
-        dataIndex: 'pay',
-        template: 'multiple',
-        templateProps: {
-          placeholder: '请选择付费类型',
-          dataSource: [
-            { label: 'A', value: 'a' },
-            { label: 'B', value: 'b' },
-            { label: 'C', value: 'c' },
-            { label: 'D', value: 'd' },
-          ],
-        },
-        defaultValue: ['a', 'd'],
-      },
-    ],
-  };
-  const fetchData = async params => {
-    console.log('params', params);
-    await sleep(500);
-    const res = await axios.get('https://table-lacaqljjvb.cn-chengdu.fcapp.run', {
-      params,
-    });
-    console.log(res);
-    return {
-      data: res.data.data.Instances.Instance,
-      total: res.data.data.TotalCount,
-    };
-  };
-  return (
-    <RcTable
-      className="cc"
-      style={{ color: '#333' }}
-      columns={columns}
-      fetchData={fetchData}
-      refreshIndex={refreshIndex}
-      recordCurrent
-      showRefreshButton
-      operation={
-        <Button type="primary" onClick={() => setRefreshIndex(Date.now())}>
-          手动刷新
-        </Button>
-      }
-      search={search}
-      primaryKey="InstanceId"
-      selection={({ selectedRowKeys }: { selectedRowKeys: any[] }) => {
-        return (
-          <Badge count={selectedRowKeys.length}>
-            <Button disabled={selectedRowKeys.length === 0}>Delete</Button>
-          </Badge>
-        );
-      }}
-    />
-  );
-};
-
-export default Demo;
-```
-
 ## onlySupportOne
 
-```tsx
+```tsx | pure
 import React, { useState } from 'react';
 import { RcTable, sleep } from '@xsahxl/ui';
 import axios from 'axios';
@@ -903,7 +845,7 @@ export default Demo;
 
 ## filterSlot
 
-```tsx
+```tsx | pure
 import React, { useState } from 'react';
 import { RcTable, sleep } from '@xsahxl/ui';
 import axios from 'axios';
@@ -1032,7 +974,7 @@ export default Demo;
 
 ## pagination=false
 
-```tsx
+```tsx | pure
 import React, { useState } from 'react';
 import { RcTable, sleep } from '@xsahxl/ui';
 import axios from 'axios';

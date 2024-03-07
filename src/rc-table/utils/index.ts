@@ -1,4 +1,4 @@
-import { filter, find, get, includes, isEmpty, last, set } from 'lodash';
+import { filter, find, get, includes, isEmpty, join, last, set } from 'lodash';
 import { IOptions, ISearch } from '../type';
 
 export const normalizeSearchOptions = (search: ISearch) => {
@@ -17,11 +17,14 @@ export const normalizeSearchOptions = (search: ISearch) => {
         valueLabel = filter(get(item, 'templateProps.dataSource', []), d => includes(item.defaultValue, d.value))
           .map(d => d.label)
           .join('/');
+        // TODO: 基础组件不支持value为数组
+        item.defaultValue = join(item.defaultValue, ',');
       }
       filters.push({
         label: item.label,
         valueLabel,
         value: item.defaultValue,
+        template: item.template,
         defaultValue: item.defaultValue,
         dataIndex: item.dataIndex,
       });
@@ -29,7 +32,7 @@ export const normalizeSearchOptions = (search: ISearch) => {
     }
   }
   if (onlySupportOne && filters.length > 0) {
-    const options: IOptions = last(filters);
+    const options = last(filters) as IOptions;
     return { filters: [options], params: { [options.dataIndex]: options.defaultValue } };
   }
   return { filters, params };

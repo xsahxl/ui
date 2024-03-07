@@ -2,11 +2,11 @@ import * as React from 'react';
 import { FC, useState, useEffect } from 'react';
 import { Button, Icon, Balloon } from '@alicloud/console-components';
 import Table, { IPaginationProps } from '@alicloud/console-components-table';
-import { IRcSearchTagItemProps, Search, SearchFilter } from '@alicloud/console-components-search';
-import { find, get, isEmpty, map, set } from 'lodash';
+import { Search, SearchFilter } from '@alicloud/console-components-search';
+import { find, get, isEmpty, join, map, set } from 'lodash';
 import styled from 'styled-components';
 import i18n from '../i18n';
-import { IParams, ITableProps, ISearch } from './type';
+import { IParams, ITableProps, ISearch, IRcSearchTagItem } from './type';
 import { normalizeSearchOptions } from './utils';
 import { DEFAULT_CURRENT, DEFAULT_PAGE_SIZE, DEFAULT_REFRESH_INDEX } from './constant';
 import '@alicloud/console-components-search/dist/index.css';
@@ -32,7 +32,7 @@ const RcTable: FC<ITableProps> = props => {
   const [dataSource, setDataSource] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [filters, setFilters] = useState<IRcSearchTagItemProps[]>([]);
+  const [filters, setFilters] = useState<IRcSearchTagItem[]>([]);
 
   const _fetchData = async (params: IParams) => {
     setLoading(true);
@@ -52,7 +52,7 @@ const RcTable: FC<ITableProps> = props => {
   // 初始化参数
   useEffect(() => {
     const data = normalizeSearchOptions(search);
-    setFilters(get(data, 'filters', []) as IRcSearchTagItemProps[]);
+    setFilters(get(data, 'filters', []) as IRcSearchTagItem[]);
     setParams({ ...params, current, pageSize, ...get(data, 'params') });
   }, []);
 
@@ -101,20 +101,26 @@ const RcTable: FC<ITableProps> = props => {
     const { onlySupportOne } = search;
     // 如果值存在
     if (value) {
+      let newVal = value;
+      const obj = find(filters, { dataIndex });
+      // TODO: 基础组件不支持value为数组
+      if (obj?.template === 'multiple') {
+        newVal = join(value, ',');
+      }
       const getData = () => {
         if (onlySupportOne) return [extra];
         const exist = find(filters, { dataIndex });
         return exist
           ? map(filters, item => {
               if (item.dataIndex === dataIndex) {
-                return { ...item, ...extra };
+                return { ...item, ...extra, value: newVal };
               }
               return item;
             })
-          : [...filters, extra];
+          : [...filters, { ...extra, value: newVal }];
       };
-      setFilters(getData() as IRcSearchTagItemProps[]);
-      setParams({ ...params, [dataIndex]: value, current: DEFAULT_CURRENT });
+      setFilters(getData() as IRcSearchTagItem[]);
+      setParams({ ...params, [dataIndex]: newVal, current: DEFAULT_CURRENT });
       return;
     }
     // 值不存在
@@ -135,7 +141,7 @@ const RcTable: FC<ITableProps> = props => {
     );
   };
 
-  const onFilterChange = (deletedFilter: IRcSearchTagItemProps, remainFilters: IRcSearchTagItemProps[]) => {
+  const onFilterChange = (deletedFilter: IRcSearchTagItem, remainFilters: IRcSearchTagItem[]) => {
     setFilters(remainFilters);
     setParams({ ...params, [get(deletedFilter, 'dataIndex') as string]: undefined });
   };
