@@ -8,3 +8,9 @@ hero:
     - text: 博客
       link: https://xsahxl.github.io/blog
 ---
+
+```tsx
+import Cookie from 'js-cookie';
+
+Cookie.set('aliyun_lang', 'zh');
+```

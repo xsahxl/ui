@@ -10,9 +10,6 @@ import { RcTable, sleep, Actions, LinkButton } from '@xsahxl/ui';
 import axios from 'axios';
 import { Button, Badge } from '@alicloud/console-components';
 import '@alicloud/console-components/dist/wind.css';
-import Cookie from 'js-cookie';
-
-Cookie.set('aliyun_lang', 'zh');
 
 const Demo = () => {
   const [refreshIndex, setRefreshIndex] = useState(0);
