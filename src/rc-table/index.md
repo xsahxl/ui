@@ -6,7 +6,7 @@
 
 ```tsx
 import React, { useState } from 'react';
-import { RcTable, sleep, Actions, LinkButton } from '@xsahxl/ui';
+import { RcTable, Actions, LinkButton } from '@xsahxl/ui';
 import axios from 'axios';
 import { Button, Badge } from '@alicloud/console-components';
 import '@alicloud/console-components/dist/wind.css';
@@ -15,25 +15,14 @@ const Demo = () => {
   const [refreshIndex, setRefreshIndex] = useState(0);
   const columns = [
     {
-      key: 'InstanceName',
+      key: 'name',
       title: '实例名称',
-      dataIndex: 'InstanceName',
+      dataIndex: 'name',
     },
     {
-      key: 'Address',
+      key: 'url',
       title: 'IP地址',
-      dataIndex: 'Address',
-    },
-    {
-      key: 'CreationTime',
-      title: '创建时间',
-      dataIndex: 'CreationTime',
-      sortable: true,
-    },
-    {
-      key: 'Status',
-      title: '状态',
-      dataIndex: 'Status',
+      dataIndex: 'url',
     },
     {
       title: '操作',
@@ -58,7 +47,7 @@ const Demo = () => {
         templateProps: {
           placeholder: '按实例名称搜索',
         },
-        defaultValue: 'abc',
+        // defaultValue: 'abc',
       },
       {
         label: '网络类型',
@@ -73,7 +62,7 @@ const Demo = () => {
             { label: 'D', value: 'd' },
           ],
         },
-        defaultValue: 'c',
+        // defaultValue: 'c',
       },
       {
         label: '付费类型',
@@ -88,20 +77,25 @@ const Demo = () => {
             { label: 'D', value: 'd' },
           ],
         },
-        defaultValue: ['a', 'd'],
+        // defaultValue: ['a', 'd'],
       },
     ],
   };
   const fetchData = async params => {
     console.log('params', params);
-    await sleep(500);
-    const res = await axios.get('https://table-lacaqljjvb.cn-chengdu.fcapp.run', {
-      params,
+    const { current, pageSize, name, ...rest } = params;
+    const res = await axios.get('https://pokeapi.co/api/v2/pokemon', {
+      params: {
+        ...rest,
+        name,
+        offset: (current - 1) * pageSize,
+        limit: pageSize,
+      },
     });
-    console.log(res);
+    console.log('res', res);
     return {
-      data: res.data.data.Instances.Instance,
-      total: res.data.data.TotalCount,
+      data: name ? res.data.results.filter(item => item.name.includes(params.name)) : res.data.results,
+      total: res.data.count,
     };
   };
   return (
